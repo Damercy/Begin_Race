@@ -2,6 +2,8 @@ import pygame
 import time
 import random
 
+
+#game_icon_size is ideally 32x32
 pygame.init()
 
 display_width = 800
@@ -12,18 +14,26 @@ white = (255,255,255)
 red = (255,0,0)
 green = (0,255,0)
 blue = (0,0,255)
+grey = (128,128,128)
 
 dim_red = (200,0,0)
 dim_white = (200,200,200)
+dim_grey = (110,110,110)
+dim_white = (220,220,220)
 
 car_width = 111
+bg_width = 327
 
+pause = False
+ 
 gameDisplay = pygame.display.set_mode((display_width ,display_height))
 pygame.display.set_caption('The GAME!')
 clock = pygame.time.Clock()
 
 carImg = pygame.image.load('car_mod.png')
+game_icon = pygame.image.load('polo_ico.png')
 
+pygame.display.set_icon(game_icon)
 
 def things_dodged(count):
     font = pygame.font.SysFont(None,25)
@@ -40,16 +50,44 @@ def car(x,y):
     gameDisplay.blit(carImg,(x,y))
 
 def text_objects(text,font):
-    if text == 'START' or text == 'EXIT':
+    if text == 'START' or text == 'EXIT' or text == 'PAUSED!' or text == 'CONTINUE' or text == 'PLAY AGAIN':
         textSurface = font.render(text ,True,black)
         return textSurface,textSurface.get_rect()
-
+    elif text == 'YOU CRASHED!':
+        textSurface = font.render(text ,True,dim_red)
+        return textSurface,textSurface.get_rect()
     textSurface = font.render(text ,True,white)
     return textSurface,textSurface.get_rect()
 
 def game_exit():
     pygame.quit()
     quit()
+
+
+def unpause():
+    global pause
+    pause = False
+
+
+    
+def paused():
+   
+    while pause:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                game_exit()
+            gameDisplay.fill(white)
+            largeText = pygame.font.Font('freesansbold.ttf',60)
+            TextSurf, TextRect = text_objects('PAUSED!',largeText)
+            TextRect.center = ((display_width/2),(display_height/2))
+            gameDisplay.blit (TextSurf,TextRect)
+
+            button('CONTINUE',150,450,100,50,dim_grey,grey,unpause)
+            button('EXIT',550,450,100,50,dim_grey,grey,game_exit)
+                
+            pygame.display.update()
+            clock.tick(60)
+
 
     
 def message_display(text):
@@ -65,7 +103,23 @@ def message_display(text):
     game_loop()
 
 def crash():
-    message_display('Crashed!')
+    largeText = pygame.font.Font('freesansbold.ttf',80)
+    TextSurf, TextRect = text_objects('YOU CRASHED!',largeText)
+    TextRect.center = ((display_width/2),(display_height/2))
+    gameDisplay.blit (TextSurf,TextRect)
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                game_exit()
+
+            button('PLAY AGAIN',150,450,100,50,dim_white,white,game_loop)
+            button('EXIT',550,450,100,50,dim_white,white,game_exit)
+                
+            pygame.display.update()
+            clock.tick(60)
+
+
 
 def button(msg,x,y,w,h,color_active,color_inactive,action=None):
     
@@ -107,6 +161,8 @@ def intro_screen():
 
     
 def game_loop():
+
+    global pause
     x= (display_width * 0.5)
     y = (display_height * 0.5)
 
@@ -126,18 +182,20 @@ def game_loop():
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
+                game_exit()
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
                     x_change = -5
                 elif event.key == pygame.K_RIGHT:
                     x_change = 5
-                elif event.key == pygame.K_UP:
-                    y_change = -5
-                elif event.key == pygame.K_DOWN:
-                    y_change = 5
+                #elif event.key == pygame.K_UP:
+                 #   y_change = -5
+                #elif event.key == pygame.K_DOWN:
+                 #   y_change = 5
+                if event.key == pygame.K_p:
+                    pause=True
+                    paused()
 
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_LEFT or pygame.K_RIGHT or event.key == pygame.K_UP or event.key == pygame.K_DOWN: 
