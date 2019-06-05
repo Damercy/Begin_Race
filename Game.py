@@ -6,6 +6,10 @@ import random
 #game_icon_size is ideally 32x32
 pygame.init()
 
+crash_sound=pygame.mixer.Sound('Crash.wav')
+#btn_sound = pygame.mixer.Sound('btn.wav')
+pygame.mixer.music.load('bg.wav')
+
 display_width = 800
 display_height = 600
 
@@ -30,8 +34,8 @@ gameDisplay = pygame.display.set_mode((display_width ,display_height))
 pygame.display.set_caption('The GAME!')
 clock = pygame.time.Clock()
 
-carImg = pygame.image.load('car_mod.png')
-game_icon = pygame.image.load('polo_ico.png')
+carImg = pygame.image.load('Images/car_mod.png')
+game_icon = pygame.image.load('Images/polo_ico.png')
 
 pygame.display.set_icon(game_icon)
 
@@ -66,11 +70,13 @@ def game_exit():
 
 def unpause():
     global pause
+    pygame.mixer.music.unpause()
     pause = False
 
 
     
 def paused():
+    pygame.mixer.music.pause()
    
     while pause:
         for event in pygame.event.get():
@@ -103,6 +109,9 @@ def message_display(text):
     game_loop()
 
 def crash():
+
+    pygame.mixer.music.stop()
+    pygame.mixer.Sound.play(crash_sound)
     largeText = pygame.font.Font('freesansbold.ttf',80)
     TextSurf, TextRect = text_objects('YOU CRASHED!',largeText)
     TextRect.center = ((display_width/2),(display_height/2))
@@ -122,7 +131,6 @@ def crash():
 
 
 def button(msg,x,y,w,h,color_active,color_inactive,action=None):
-    
         mouse = pygame.mouse.get_pos()
 
         click = pygame.mouse.get_pressed()
@@ -132,8 +140,10 @@ def button(msg,x,y,w,h,color_active,color_inactive,action=None):
 
         if (x+w>mouse[0]>x) and (y+h>mouse[1]>y):
             pygame.draw.rect(gameDisplay,color_active,(x,y,w,h))
-            if click[0] == 1 and action!=None:
-                action()
+            if click[0] == 1:
+                  #pygame.mixer.Sound.play(btn_sound)
+                  if action!=None:
+                      action()
         
         smallText = pygame.font.Font("freesansbold.ttf",10)
         TextSurf, TextRect = text_objects(msg,smallText)
@@ -163,6 +173,7 @@ def intro_screen():
 def game_loop():
 
     global pause
+    pygame.mixer.music.play(-1)         # -1 means indefinitely. Set 1 for playing once,2 for twice and henceforth
     x= (display_width * 0.5)
     y = (display_height * 0.5)
 
