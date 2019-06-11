@@ -37,7 +37,7 @@ The Car only moves sideways, so to move left , press the **left arrow** (<img sr
 
 Also avoid hitting the edges of the screen (window) to avoid crashing.  
 
-Keep on playing and dodging objects. For every _10_ objects you surpass , the speed of the car automatically increases thereby >  increasing the difficulty. 
+Keep on playing and dodging objects. For every _10_ objects you surpass , the speed of the car automatically increases thereby  increasing the difficulty. 
 
  Press 'p' to pause the game.
 
@@ -49,24 +49,22 @@ Or in other words, move to this location : '[Your download path here]\Begin_Race
 Then click the **game.exe** file to start the game.  
 >
 For modifications to the game files including changing FPS from the current 60FPS,or to add your own sound files/icons/image sprites or any change whatsoever, open the file **Game.py** in the downloaded repo and modify this **.py** file as required.
->
-Hope you like it!
 
 ## Additional Thoughts
 
->The project is incomplete in the sense that I plan on to make the following modifications in the near future:-
+The project is incomplete in the sense that I plan on to make the following modifications in the near future:-
 >  * Add background
 >  * Add complex crash functionality like fires & smoke
 >  * Add better sounds
 >  * Make it cool in ways I _can_ imagine in the future!
-> 
->  
 
-# _THANK YOU_
+Hope you like it!  
+
+
+## _THANK YOU!_
 
 
 [Gameplay Picture here]:https://github.com/Damercy/Begin_Race/blob/master/Screenshots/Gameplay.png
 [Menu_screen Picture here]:https://github.com/Damercy/Begin_Race/blob/master/Screenshots/Menu.png
 [Pause_screen Picture here]:https://github.com/Damercy/Begin_Race/blob/master/Screenshots/Pause.png  
 [Crash_screen Picture here]:https://github.com/Damercy/Begin_Race/blob/master/Screenshots/Crashed.png
-
