@@ -34,8 +34,8 @@ gameDisplay = pygame.display.set_mode((display_width ,display_height))
 pygame.display.set_caption('The GAME!')
 clock = pygame.time.Clock()
 
-carImg = pygame.image.load('Images/car_mod.png')
-game_icon = pygame.image.load('Images/polo_ico.png')
+carImg = pygame.image.load('car_mod.png')
+game_icon = pygame.image.load('polo_ico.png')
 
 pygame.display.set_icon(game_icon)
 

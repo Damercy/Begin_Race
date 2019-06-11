@@ -8,9 +8,10 @@ import cx_Freeze
 executables = [cx_Freeze.Executable("Game.py")]
 
 cx_Freeze.setup( 
-        version="22.99",
+        version="1.1",
         name = "The GAME",
         options = {"build_exe":{"packages":["pygame"],
-                                "include_files":["car_mod.png"]}},
+                                "include_files":["car_mod.png","polo_ico.png",
+                                                 "bg.wav","Crash.wav"]}},
         executables = executables
         )
